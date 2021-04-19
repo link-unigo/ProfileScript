@@ -27,9 +27,7 @@ GitLab
 
 harbor作为docker容器的一种存储工具，充分做到了分组、管理、权限的合集。在一众新版本中，也支持了Helm chart管理。为了适应简单的使用，当然其部署方式也相对简单，基本实现了一键部署。但同时在不同场景中，也需要不同的配置。这里展示在内网环境下部署。
 
-参考链接：
-
-[harbor install]: https://goharbor.io/docs/2.0.0/install-config/
+参考链接：https://goharbor.io/docs/2.0.0/install-config/
 
 
 
