@@ -1,7 +1,7 @@
 [Kubeadm HA](https://github.com/TimeBye/kubeadm-ha)
 =======
 
-**🎉 项目受 [kubeasz](https://github.com/easzlab/kubeasz) 启发，考虑使用二进制进行安装的童鞋可以参考这个项目。**
+**🎉 项目引由open-hand下开放项目做部署优化**
 
 `kubeadm-ha` 使用 [kubeadm](https://kubernetes.io/docs/setup/independent/install-kubeadm/) 进行高可用 kubernetes 集群搭建，利用 ansible-playbook 实现自动化安装，既提供一键安装脚本，也可以根据 playbook 分步执行安装各个组件。
 
@@ -53,8 +53,4 @@
         <td><a target="_blank" href="docs/08-离线安装.md">08-离线安装</a></td>
     </tr>
 </table>
-
 [![asciicast](https://asciinema.org/a/254490.svg)](https://asciinema.org/a/254490)
-
-## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTimeBye%2Fkubeadm-ha.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTimeBye%2Fkubeadm-ha?ref=badge_large)
