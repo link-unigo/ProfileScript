@@ -1,4 +1,3 @@
-# ProfileScript
 > 本仓库现下为学习内容为主，多数会以shell脚本形式展示。因为一直使用Apple家的产品，所以也会兼顾提供一下Apple部分软件上的使用心得、教程类的文章。
 
 ## Learning
@@ -8,16 +7,6 @@
 **项目学习历程**
 
 初始阶段，首先接触到了集群及各种devops工具，git、禅道、数据库、maven、docker等。根据整体使用情况，一步一步展示所有应用的使用方式。
-
-Docker
-
-Harbor
-
-Kubernetes
-
-GitLab
-
-
 
 ### Harbor
 
@@ -39,8 +28,6 @@ harbor作为docker容器的一种存储工具，充分做到了分组、管理�
 
 **学习之路**
 
-
-
-### Sharing
+## Sharing
 
 将Apple产品使用上的相关内容集中展示（虽然也有很多人都做过了）
