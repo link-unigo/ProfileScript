@@ -1,0 +1,49 @@
+# kubernetes version
+kubernetesVersion: "v1.20.2"
+# kubernetes image repository
+# if use official image repository, please remove this settings
+imageRepository: "registry.cn-hangzhou.aliyuncs.com/google_containers"
+
+# kubernetes masters settings
+kubernetesInfo:
+  # kubernetes virtual ip, keepalived's vip
+  kubernetesVip: "172.20.10.10"
+  # kubernetes virtual ip hostname
+  kubernetesVname: k8s-vip
+  # kubernetes master hosts info
+  kubernetesHosts:
+    # master node ip address
+  - hostIP: "172.20.10.4"
+    # master node hostname
+    hostName: k8s-master01
+    # master node host ip related network interface
+    hostNetworkInterface: enp0s3
+    # keepalived priority, don't change
+    keepalivedPriority: 102
+    # master node ip address
+  - hostIP: "172.20.10.5"
+    # master node hostname
+    hostName: k8s-master02
+    # master node host ip related network interface
+    hostNetworkInterface: enp0s3
+    # keepalived priority, don't change
+    keepalivedPriority: 101
+    # master node ip address
+  - hostIP: "172.20.10.6"
+    # master node hostname
+    hostName: k8s-master03
+    # master node host ip related network interface
+    hostNetworkInterface: enp0s3
+    # keepalived priority, don't change
+    keepalivedPriority: 100
+
+# calico addons settings
+calicoSettings:
+  # kubernetes CIDR address
+  calicoIPv4PoolCIDR: "193.169.0.0/16"
+  # IP_AUTODETECTION_METHOD, interface or canReach just select one
+  calicoIpDetectionMethod:
+    # # bond specificed network interface, all nodes network interfaces must be same
+    # interface: enp0s3
+    # bond network interface which can reach this ip address, sometimes is gateway ip
+    canReach: "172.20.10.1"

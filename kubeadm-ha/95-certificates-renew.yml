@@ -1,8 +1,0 @@
-- hosts: 
-  - etcd
-  - new-etcd
-  - kube-master
-  - new-master
-  roles:
-  - etcd/certificates
-  - kube-master/certificates

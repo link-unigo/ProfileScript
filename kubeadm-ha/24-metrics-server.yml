@@ -1,5 +1,0 @@
-# 安装基础插件
-- hosts: 
-  - kube-master[0]
-  roles:
-  - plugins/metrics-server

@@ -1,5 +1,0 @@
-# 所有节点安装 kubernetes 组件
-- hosts: 
-  - all
-  roles:
-  - prepare/kubernetes

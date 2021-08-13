@@ -1,6 +1,0 @@
-# 升级所有节点内核
-- hosts: 
-  - all
-  roles:
-  - prepare/base
-  - prepare/kernel

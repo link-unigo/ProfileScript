@@ -16,7 +16,7 @@ harbor作为docker容器的一种存储工具，充分做到了分组、管理�
 
 简易安装整理：[harobr install](/harbor/install.md)
 
-### MySql部署
+### MySql
 
 mysql服务的部署以最主流的版本5.7.*为依据，从三个层面介绍其单机部署方式。
 
