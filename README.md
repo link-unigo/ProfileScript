@@ -1,6 +1,6 @@
 > 本仓库现下为学习内容为主，多数会以shell脚本形式展示。因为一直使用Apple家的产品，所以也会兼顾提供一下Apple部分软件上的使用心得、教程类的文章。
 
-## Learning
+## Learn
 
 学习部分的内容会整合从2017年开始工作后，所经历过的一些项目的经验整合，以期间在学习上的相关内容分享。
 
@@ -14,25 +14,26 @@ harbor作为docker容器的一种存储工具，充分做到了分组、管理�
 
 官网部署参考链接：https://goharbor.io/docs/2.0.0/install-config/
 
-简易安装整理：[harobr install](/harbor/install.md)
+简易安装整理：[harobr install](/Harbor/install.md)
 
 ### MySql
 
 mysql服务的部署以最主流的版本5.7.*为依据，从三个层面介绍其单机部署方式。
 
-- [RPM部署](/mysql/RPM部署.md)
+- [RPM部署](/Mysql/RPM部署.md)
 
-- [编译包部署](/mysql/编译包部署.md)
+- [编译包部署](/Mysql/编译包部署.md)
 
-- [源码编译部署](/mysql/源码编译部署.md)
+- [源码编译部署](/Mysql/源码编译部署.md)
 
 三种部署方式中，建议采用rpm部署或编译包部署。
 
 ### Kubernetes
 
-自从kuberntes升级到1.20之后，其运行方式发生了些变化，为了能够完善的处理多重方式的集群管理，整理完成两种版本的部署方式，且每种方式都提供两种场景。
+在实际使用或部署k8s的过程中，总会遇到很多场景上的差异。在实际项目应用和开发过程中，可以主要考虑两种方式的k8s部署方法：
 
-
+- ansible引用kubeadm一键部署集群[Thanks To TimeBye](https://github.com/TimeBye/kubeadm-ha.git)
+- kubeadm分步部署集群[Thanks To cookeem](https://github.com/cookeem/kubeadm-ha.git)
 
 
 
