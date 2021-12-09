@@ -10,12 +10,12 @@ helm install mongodb \\
 --set global.storageClass=nfs-provisioner \\
 --set global.namespaceOverride=storage \\
 --set auth.enabled=false \\
---set replicaSetName=cmdb \\
+--set replicaSetName=demo \\
 --set fullnameOverride=mongodb \\
 bitnami/mongodb
 ```
 
-2、更新，增加外网访问模式
+2、更新，增加外网访问模式。由于某些原因不能一步到位，所以采用更新的操作实现
 
 ```yaml
 helm upgrade --install mongodb \\
@@ -23,7 +23,7 @@ helm upgrade --install mongodb \\
 --set global.storageClass=nfs-provisioner \\
 --set global.namespaceOverride=storage \\
 --set auth.enabled=false \\
---set replicaSetName=cmdb \\
+--set replicaSetName=demo \\
 --set fullnameOverride=mongodb \\
 --set replicaCount=2 \\
 --set externalAccess.enabled=true \\
@@ -33,7 +33,7 @@ helm upgrade --install mongodb \\
 bitnami/mongodb
 ```
 
-设置访问密码和数据
+3、设置访问密码和数据。需以command形式登录到mongodb中
 
 ```yaml
 # 切换到hops_cmdb数据库
