@@ -37,7 +37,7 @@ bitnami/mongodb
 
 ```yaml
 # 切换到hops_cmdb数据库
-use hops_cmdb
+use demo
 # 创建hops_cmdb数据库读写角色
-db.createUser({user: "hops", pwd: "hops", roles: [{ role: "readWrite", db:"hops_cmdb" }]})
+db.createUser({user: "demo", pwd: "demo", roles: [{ role: "readWrite", db:"demo" }]})
 ```
