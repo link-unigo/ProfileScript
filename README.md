@@ -43,8 +43,10 @@ mongodb是一种非关系型数据库，为满足实际生产模式中的使用�
 - ansible引用kubeadm一键部署集群[Thanks To TimeBye](https://github.com/TimeBye/kubeadm-ha.git)
 - kubeadm分步部署集群[Thanks To cookeem](https://github.com/cookeem/kubeadm-ha.git)
 
-### App/QuantumultX
-
 将Apple产品使用上的相关内容集中展示（虽然也有很多人都做过了）
 
-#### App/Surge
+### App/QuantumultX
+
+准备做一些破解规则
+
+### App/Surge
