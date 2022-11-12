@@ -14,17 +14,17 @@ harbor作为docker容器的一种存储工具，充分做到了分组、管理�
 
 官网部署参考链接：https://goharbor.io/docs/2.0.0/install-config/
 
-简易安装整理：[harobr install](/Harbor/install.md)
+简易安装整理：[harobr install](/Middleware/Harbor/install.md)
 
 ### Middleware/MySql
 
 mysql服务的部署以最主流的版本5.7.*为依据，从三个层面介绍其单机部署方式。
 
-- [RPM部署](/Mysql/RPM部署.md)
+- [RPM部署](/Middleware/Mysql/RPM部署.md)
 
-- [编译包部署](/Mysql/编译包部署.md)
+- [编译包部署](/Middleware/Mysql/编译包部署.md)
 
-- [源码编译部署](/Mysql/源码编译部署.md)
+- [源码编译部署](/Middleware/Mysql/源码编译部署.md)
 
 三种部署方式中，建议采用rpm部署或编译包部署。
 
@@ -32,9 +32,9 @@ mysql服务的部署以最主流的版本5.7.*为依据，从三个层面介绍�
 
 mongodb是一种非关系型数据库，为满足实际生产模式中的使用，最好选择部署副本集模式。以下提供helm部署和二进制部署两种模式。
 
-[helm部署](MongoDB/helm部署.md)
+[helm部署](Middleware/MongoDB/helm部署.md)
 
-[二进制部署](MongoDB/二进制部署.md)
+[二进制部署](Middleware/MongoDB/二进制部署.md)
 
 ### Basic/Kubernetes
 
