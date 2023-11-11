@@ -1,0 +1,68 @@
+1、去 nginx官网下载 nginx 包，建议下载稳定版本
+2、上传 nginx 到 linux 系统自定义的目录下。（上传工具可以使用 xftp）
+3、安装依赖环境。
+3.1 安装 gcc 环境
+yum install gcc-c++
+复制代码
+3.2、安装 PCRE 库
+yum install -y pcre pcre-devel
+复制代码
+3.3、安装 zlib 压缩和解压缩依赖
+yum install -y zlib zlib-devel
+复制代码
+3.4、安装 SSL 安全的加密的套接字协议层，用于 HTTP 安全传输
+yum install -y openssl openssl-devel
+复制代码
+4、解压压缩包，解压后得到源码，之后需要编译后安装
+tar -zxvf nginx-1.xx.tar.gz
+复制代码
+5、创建临时目录
+mkdir /var/temp/nginx -p
+复制代码
+6、切换到 nginx 目录，输入如下命令进行配置
+./configure \
+    --prefix=/usr/local/nginx \
+    --pid-path=/var/run/nginx/nginx.pid \
+    --lock-path=/var/lock/nginx.lock \
+    --error-log-path=/var/log/nginx/error.log \
+    --http-log-path=/var/log/nginx/access.log \
+    --with-http_gzip_static_module \
+    --http-client-body-temp-path=/var/temp/nginx/client \
+    --http-proxy-temp-path=/var/temp/nginx/proxy \
+    --http-fastcgi-temp-path=/var/temp/nginx/fastcgi \
+    --http-uwsgi-temp-path=/var/temp/nginx/uwsgi \
+    --http-scgi-temp-path=/var/temp/nginx/scgi
+复制代码
+命令解释如下：
+–prefix 指定nginx安装目录
+
+–pid-path 指向nginx的pid
+
+–lock-path 锁定安装文件，防止被恶意篡改或误操作
+
+–error-log 错误日志
+
+–http-log-path http日志
+
+–with-http_gzip_static_module 启用gzip模块，在线实时压缩输出数据流
+
+–http-client-body-temp-path 设定客户端请求的临时目录
+
+–http-proxy-temp-path 设定http代理临时目录
+
+–http-fastcgi-temp-path 设定fastcgi临时目录
+
+–http-uwsgi-temp-path 设定uwsgi临时目录
+
+–http-scgi-temp-path 设定scgi临时目录
+复制代码
+7、编译安装
+make && make install
+复制代码
+8、进入 nginx 目录下的 sbin 目录，执行命令
+启动：./nginx
+停止：./nginx -s stop
+重新加载：./nginx -s reload
+复制代码
+9、执行./nginx 命令启动后，打开浏览器，访问虚拟机所处内网 ip 即可打开 nginx 默认页面，表示安装成功（默认访问 80 端口，所以保证 80 端口是开启的，如在本地虚拟机，需要关闭防火墙
+
