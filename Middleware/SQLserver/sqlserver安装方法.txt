@@ -1,0 +1,79 @@
+## 前置条件
+
+准备好centos操作系统，版本可以为7以上。此次安装的版本为sqlserver 2017，centos7系列不建议安装sqlserver 2019及以上的版本，因为操作系统本身的限制，glibc等依赖版本升级操作会相当麻烦。 如果想要安装sqlserver 2019以上可选择redhat或centos 8以上的版本。
+
+## 安装方法说明
+
+Linux下安装sqlserver数据库有两种方法： - 第一种，使用yum镜像安装； - 第二种，使用rpm安装包安装。
+
+解释：目前网络上还没有查到使用二进制方式安装的教程，因此若想要再内网环境下安装sqlserer的话，最好的方式采用第二种方法。
+
+## yum镜像安装（可以访问外网的情况）
+
+1、安装mssql-server.repo
+
+curl https://packages.microsoft.com/config/rhel/7/mssql-server.repo > /etc/yum.repos.d/mssql-server.repo
+
+2、安装mssql
+
+yum install -y mssql-server
+
+3、基础配置
+
+sudo /opt/mssql/bin/mssql-conf setup
+
+提示窗口会要求选择sqlserver的授权方式(建议开发者版本)和设置sa高级帐号的密码，按照要求配置即可
+
+4、操作sqlserver
+
+systemctl status|start|stop|restart mussel-server
+
+5、关闭防火墙
+
+systemctl stop firewalld systemctl disable firewalld
+
+vi /etc/selinux/config
+
+SELINUX=disabled
+
+重启服务器，接下来就能通过工具进行访问了
+
+## rpm安装（适合内网条件）
+
+1、在公网环境下找到一台同操作系统的服务器（大版本相同即可），下载mssql-server的rpm包和必要的安装依赖
+
+安装yum-utils包
+
+sudo yum install -y yum-utils
+
+下载mssql-server
+
+curl -O https://packages.microsoft.com/rhel/7/mssql-server-2017/Packages/m/mssql-server-14.0.3465.1-1.x86_64.rpm 其他版本下载地址：https://packages.microsoft.com/
+
+2、下载安装依赖
+
+yum install –downloadonly –downloaddir=/root mssql-server-14.0.3465.1-1.x86_64.rpm 将下载好的rpm包传输到目标服务器/u01/pkg/rpm
+
+3、目前服务器安装mssql-server
+
+yum install -y /u01/pkg/rpm/*.rpm
+
+3、基础配置
+
+sudo /opt/mssql/bin/mssql-conf setup
+
+提示窗口会要求选择sqlserver的授权方式(建议开发者版本)和设置sa高级帐号的密码，按照要求配置即可
+
+4、操作sqlserver
+
+systemctl status|start|stop|restart mussel-server
+
+5、关闭防火墙
+
+systemctl stop firewalld systemctl disable firewalld
+
+vi /etc/selinux/config
+
+SELINUX=disabled
+
+重启服务器，接下来就能通过工具进行访问了
