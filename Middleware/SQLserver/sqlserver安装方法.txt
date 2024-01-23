@@ -46,15 +46,16 @@ SELINUX=disabled
 
 sudo yum install -y yum-utils
 
-下载mssql-server
+下载mssql-server，其他版本下载地址：https://packages.microsoft.com/
 
-curl -O https://packages.microsoft.com/rhel/7/mssql-server-2017/Packages/m/mssql-server-14.0.3465.1-1.x86_64.rpm 其他版本下载地址：https://packages.microsoft.com/
+curl -O https://packages.microsoft.com/rhel/7/mssql-server-2017/Packages/m/mssql-server-14.0.3465.1-1.x86_64.rpm
 
 2、下载安装依赖
 
-yum install –downloadonly –downloaddir=/root mssql-server-14.0.3465.1-1.x86_64.rpm 将下载好的rpm包传输到目标服务器/u01/pkg/rpm
+yum install –downloadonly –downloaddir=/root mssql-server-14.0.3465.1-1.x86_64.rpm mssql-tools18 unixODBC-devel
+将下载好的rpm包传输到目标服务器/u01/pkg/rpm
 
-3、目前服务器安装mssql-server
+3、目前服务器安装mssql-server(这里同时也会安装sqlcmd，可在服务器上连接sqlserver)
 
 yum install -y /u01/pkg/rpm/*.rpm
 
@@ -77,3 +78,25 @@ vi /etc/selinux/config
 SELINUX=disabled
 
 重启服务器，接下来就能通过工具进行访问了
+
+## 更改默认数据或日志目录的位置
+
+使用 filelocation.defaultdatadir 和 filelocation.defaultlogdir 设置可更改创建新数据库和日志文件的位置。 默认情况下，此位置是 /var/opt/mssql/data。
+若要更改这些设置，请使用以下步骤：
+
+1、为新的数据库数据和日志文件创建目标目录。 以下示例创建新的 /tmp/data 目录：
+sudo mkdir /tmp/data
+
+2、将目录的所有者和组更改为 mssql 用户：
+sudo chown mssql /tmp/data
+sudo chgrp mssql /tmp/data
+
+3、使用 mssql-conf 通过 set 命令更改默认数据目录：
+sudo /opt/mssql/bin/mssql-conf set filelocation.defaultdatadir /tmp/data
+
+4、重启 SQL Server 服务：
+sudo systemctl restart mssql-server
+
+5、现在，为新数据库创建的所有数据库文件都存储在此新位置。 如果要更改新数据库的日志文件 (.ldf) 位置，可以使用下面的 set 命令：
+sudo /opt/mssql/bin/mssql-conf set filelocation.defaultlogdir /tmp/log
+此命令还假定存在 /tmp/log 目录，并且它位于用户和组 mssql 下。
