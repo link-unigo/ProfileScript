@@ -1,0 +1,221 @@
+## install mongodb with multiple replicas
+
+### os settings
+
+- stop firewalld
+
+systemctl disable --now firewalld
+
+- close selinux
+
+vi /etc/selinux/config
+
+SELINUX=enforceing -> SELINUX=disabled
+
+- create user mongod
+
+adduser mongod
+
+
+### primary node 
+
+- prepare binary file
+
+mkdir /data/software
+scp mongodb-linux-x86_64-rhel70-6.0.16.tgz /data/software
+
+- decompress
+
+tar -xf mongodb-linux-x86_64-rhel70-6.0.16.tgz -C /usr/local
+mv /usr/local/mongodb-linux-x86_64-rhel70-6.0.16 /usr/local/mongodb-6.0.16
+
+- create data and log dir
+
+mkdir -p /data/app/mongodb/mongo_primary/log
+mkdir -p /data/app/mongodb/mongo_primary/data/db
+
+- change owner to mongod
+
+chown -R mongod:mongod /data/app/mongodb
+chown -R mongod:mongod /usr/local/mongodb-6.0.16
+
+- create config file
+
+su - mongod
+vi /data/app/mongodb/mongo_primary/mongod.conf
+systemLog:
+  #MongoDB发送所有日志输出的目标指定为文件
+  destination: file
+  #mongod或mongos应向其发送所有诊断日志记录信息的日志文件的路径
+  path: "/data/app/mongodb/mongo_primary/log/mongod.log"
+  #当mongos或mongod实例重新启动时，mongos或mongod会将新条目附加到现有日志文件的末尾。
+  logAppend: true
+storage:
+  #mongod实例存储其数据的目录。storage.dbPath设置仅适用于mongod。
+  dbPath: "/data/app/mongodb/mongo_primary/data/db"
+  journal:
+    #启用或禁用持久性日志以确保数据文件保持有效和可恢复。
+    enabled: true
+processManagement:
+  #启用在后台运行mongos或mongod进程的守护进程模式。
+  fork: true
+  #指定用于保存mongos或mongod进程的进程ID的文件位置，其中mongos或mongod将写入其PID
+  pidFilePath: "/data/app/mongodb/mongo_primary/log/mongod.pid"
+net:
+  #服务实例绑定所有IP，有副作用，副本集初始化的时候，节点名字会自动设置为本地域名，而不是ip
+  #bindIpAll: true
+  #服务实例绑定的IP 这里需要配置本地IP,公网ip 如果不配置公网ip，会导致无法远程连接
+  bindIp: localhost,127.0.0.1
+  #绑定的端口
+  port: 27017
+replication:
+  #副本集的名称
+  replSetName: mongo
+
+- start command
+
+su - mongod
+/usr/local/mongodb-6.0.16/bin/mongod -f /data/app/mongodb/mongo_primary/mongod.conf
+
+
+### secondary node
+
+- prepare binary file
+
+mkdir /data/software
+scp mongodb-linux-x86_64-rhel70-6.0.16.tgz /data/software
+
+- decompress
+
+tar -xf mongodb-linux-x86_64-rhel70-6.0.16.tgz -C /usr/local
+mv /usr/local/mongodb-linux-x86_64-rhel70-6.0.16 /usr/local/mongodb-6.0.16
+
+- create data and log dir
+
+mkdir -p /data/app/mongodb/mongo_secondary/log
+mkdir -p /data/app/mongodb/mongo_secondary/data/db
+
+- change owner to mongod
+
+chown -R mongod:mongod /data/app/mongodb
+chown -R mongod:mongod /usr/local/mongodb-6.0.16
+
+- create config file
+
+su - mongod
+vi /data/app/mongodb/mongo_secondary/mongod.conf
+systemLog:
+  #MongoDB发送所有日志输出的目标指定为文件
+  destination: file
+  #mongod或mongos应向其发送所有诊断日志记录信息的日志文件的路径
+  path: "/data/app/mongodb/mongo_secondary/log/mongod.log"
+  #当mongos或mongod实例重新启动时，mongos或mongod会将新条目附加到现有日志文件的末尾。
+  logAppend: true
+storage:
+  #mongod实例存储其数据的目录。storage.dbPath设置仅适用于mongod。
+  dbPath: "/data/app/mongodb/mongo_secondary/data/db"
+  journal:
+    #启用或禁用持久性日志以确保数据文件保持有效和可恢复。
+    enabled: true
+processManagement:
+  #启用在后台运行mongos或mongod进程的守护进程模式。
+  fork: true
+  #指定用于保存mongos或mongod进程的进程ID的文件位置，其中mongos或mongod将写入其PID
+  pidFilePath: "/data/app/mongodb/mongo_secondary/log/mongod.pid"
+net:
+  #服务实例绑定所有IP，有副作用，副本集初始化的时候，节点名字会自动设置为本地域名，而不是ip
+  #bindIpAll: true
+  #服务实例绑定的IP 这里需要配置本地IP,公网ip 如果不配置公网ip，会导致无法远程连接
+  bindIp: localhost,127.0.0.1
+  #绑定的端口
+  port: 27017
+replication:
+  #副本集的名称
+  replSetName: mongo
+
+- start command
+
+su - mongod
+/usr/local/mongodb-6.0.16/bin/mongod -f /data/app/mongodb/mongo_secondary/mongod.conf
+
+
+### arbiter node
+
+- prepare binary file
+
+mkdir /data/software
+scp mongodb-linux-x86_64-rhel70-6.0.16.tgz /data/software
+
+- decompress
+
+tar -xf mongodb-linux-x86_64-rhel70-6.0.16.tgz -C /usr/local
+mv /usr/local/mongodb-linux-x86_64-rhel70-6.0.16 /usr/local/mongodb-6.0.16
+
+- create data and log dir
+
+mkdir -p /data/app/mongodb/mongo_arbiter/log
+mkdir -p /data/app/mongodb/mongo_arbiter/data/db
+
+- change owner to mongod
+
+chown -R mongod:mongod /data/app/mongodb
+chown -R mongod:mongod /usr/local/mongodb-6.0.16
+
+- create config file
+
+su - mongod
+vi /data/app/mongodb/mongo_arbiter/mongod.conf
+systemLog:
+  #MongoDB发送所有日志输出的目标指定为文件
+  destination: file
+  #mongod或mongos应向其发送所有诊断日志记录信息的日志文件的路径
+  path: "/data/app/mongodb/mongo_arbiter/log/mongod.log"
+  #当mongos或mongod实例重新启动时，mongos或mongod会将新条目附加到现有日志文件的末尾。
+  logAppend: true
+storage:
+  #mongod实例存储其数据的目录。storage.dbPath设置仅适用于mongod。
+  dbPath: "/data/app/mongodb/mongo_arbiter/data/db"
+  journal:
+    #启用或禁用持久性日志以确保数据文件保持有效和可恢复。
+    enabled: true
+processManagement:
+  #启用在后台运行mongos或mongod进程的守护进程模式。
+  fork: true
+  #指定用于保存mongos或mongod进程的进程ID的文件位置，其中mongos或mongod将写入其PID
+  pidFilePath: "/data/app/mongodb/mongo_arbiter/log/mongod.pid"
+net:
+  #服务实例绑定所有IP，有副作用，副本集初始化的时候，节点名字会自动设置为本地域名，而不是ip
+  #bindIpAll: true
+  #服务实例绑定的IP 这里需要配置本地IP,公网ip 如果不配置公网ip，会导致无法远程连接
+  bindIp: localhost,127.0.0.1
+  #绑定的端口
+  port: 27017
+replication:
+  #副本集的名称
+  replSetName: mongo
+
+- start command
+
+su - mongod
+/usr/local/mongodb-6.0.16/bin/mongod -f /data/app/mongodb/mongo_arbiter/mongod.conf
+
+
+### config  multiple replicas
+
+- connect primary node mongodb
+
+mongosh
+
+- add node
+
+rs.add("10.150.32.53:27017")
+rs.add("10.150.160.45:27017")
+
+- add arbiter node
+
+rs.add({host: "10.150.32.43:27018", arbiterOnly: true})
+
+
+
+
+
