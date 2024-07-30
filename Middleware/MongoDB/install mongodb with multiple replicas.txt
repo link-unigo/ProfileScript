@@ -208,12 +208,12 @@ mongosh
 
 - add node
 
-rs.add("10.150.32.53:27017")
-rs.add("10.150.160.45:27017")
+rs.add("127.0.0.1:27017")
+rs.add("127.0.0.15:27017")
 
 - add arbiter node
 
-rs.add({host: "10.150.32.43:27018", arbiterOnly: true})
+rs.add({host: "127.0.0.13:27018", arbiterOnly: true})
 
 
 
