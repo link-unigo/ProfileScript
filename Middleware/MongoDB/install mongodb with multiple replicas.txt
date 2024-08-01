@@ -213,6 +213,12 @@ rs.add("127.0.0.15:27017")
 
 - add arbiter node
 
+db.adminCommand({
+  "setDefaultRWConcern" : 1,
+  "defaultWriteConcern" : {
+    "w" : 2
+  }
+})
 rs.add({host: "127.0.0.13:27018", arbiterOnly: true})
 
 
